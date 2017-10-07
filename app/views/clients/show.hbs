@@ -1,0 +1,16 @@
+<section>
+  <header>
+    <h1>{{name}}</h1>
+  </header>
+  <div>
+    Client Identifier: {{clientId}}
+  </div>
+  <div>
+    Client Secret: {{clientSecret}}
+  </div>
+  {{#each redirectUris}}
+    <div>
+      Redirect Url: <a href="{{.}}">{{.}}</a>
+    </div>
+  {{/each}}
+</section>

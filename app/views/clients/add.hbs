@@ -1,0 +1,37 @@
+<section>
+  <header>
+    <h1>Add A New Application</h1>
+  </header>
+  <form action="/clients" method="POST">
+    <div class="row">
+      <div class="medium-12 columns">
+        {{#if errors}}
+          <ul>
+            {{#each errors}}
+              <li>{{.}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-6 columns">
+        <label>Application Name
+          <input type="text" name="name" placeholder="Application Name"></input>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-6 columns">
+        <label>Redirect URI
+          <input type="text" name="redirectUri" placeholder="http://yourdomainname.com/redirect_url"></input>
+        </label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="medium-4 columns">
+        <input type="submit" class="button" value="Save"></input>
+      </div>
+    </div>
+  </form>
+</section>

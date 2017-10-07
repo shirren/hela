@@ -1,0 +1,20 @@
+<section>
+  <header>
+    <h1>Approve/Deny Request</h1>
+  </header>
+  <form action="/authority/approve" method="POST">
+		<h2>Approve this client?</h2>
+    <input type="hidden" name="reqid" value="{{reqid}}">
+		{{#if client.client_name }}
+		  <p><b>Name:</b> <code>{{client.name}}</code></p>
+		  <p><b>ID:</b> <code>{{client.clientId}}</code></p>
+		  {{!--<p><b>URI:</b> <code>{{client.redirectUri}}</code></p>--}}
+		{{/if}}
+    <div class="row">
+      <div class="medium-4 columns">
+        <input type="submit" class="button" name="approve" value="Approve"></input>
+        <input type="submit" class="button" name="deny" value="Deny"></input>
+      </div>
+    </div>
+  </form>
+</section>

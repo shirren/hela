@@ -1,0 +1,55 @@
+{
+  "name": "hela",
+  "version": "0.0.1",
+  "description": "MVP build of the cloudidentity platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/shirren/hela.git"
+  },
+  "keywords": [
+    "oauth"
+  ],
+  "author": "Shirren Premaratne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shirren/hela/issues"
+  },
+  "homepage": "https://github.com/shirren/hela#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cluster": "^0.7.7",
+    "compression": "^1.6.2",
+    "connect": "^3.6.1",
+    "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.2",
+    "moment": "^2.18.1",
+    "mongoose": "^4.9.5",
+    "mongoose-error-helper": "0.0.2",
+    "mongoose-schema-extend": "^0.2.2",
+    "mongoose-slug-generator": "^1.0.4",
+    "mongoose-type-url": "^1.0.2",
+    "mongoose-validator": "^1.2.6",
+    "named-routes": "^2.0.6",
+    "nconf": "^0.8.4",
+    "node-ses": "^2.0.5",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "factory-girl": "^4.2.2",
+    "grunt": "^1.0.1",
+    "grunt-eslint": "^19.0.0",
+    "grunt-exec": "^2.0.0",
+    "grunt-mocha-test": "^0.13.2",
+    "mocha": "^3.2.0",
+    "mocha-mongoose": "^1.2.0",
+    "supertest": "^3.0.0"
+  }
+}

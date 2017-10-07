@@ -1,0 +1,44 @@
+<section>
+  <header>
+    <h1>Applications</h1>
+  </header>
+  <div class="row column align-right">
+    {{!--<div class="column">--}}
+      <a class="button" href="/clients/new">Add New Application</a>
+    {{!--</div>--}}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th width="250">Application Name</th>
+        <th width="120">Client Id</th>
+        <th colspan="2"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each clients}}
+        <tr>
+          <td>{{name}}</td>
+          <td>{{clientId}}</td>
+          <td><a href="/clients/{{slug}}">view</a></td>
+          <td><a class="client-delete" aria-href="/clients/{{slug}}">delete</a></td>
+        </tr>
+      {{else}}
+        <tr>
+          <td colspan="3">No clients registered</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+
+<script>
+$('.client-delete').click(function() {
+  console.log($(this).attr('aria-href'));
+  $.ajax({
+    url: $(this).attr('aria-href'),
+    type: 'DELETE',
+    success: function(result) { location.reload(); }
+  });
+});
+</script>
