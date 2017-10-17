@@ -15,9 +15,7 @@ let schemaOptions = {
 
 /**
  * A token is issued to a client which successfully authenticates on the platform. The token
- * storage is independent of it's representation
- * TODO: We need to decide how the token is generated. Is the token a JWT token, or do we
- * use OpenIdConnect?
+ * storage is independent of it's representation.
  */
 let TokenSchema = new Schema({
   key:         { type: String, required: 'Access token required', index: true },
@@ -30,18 +28,21 @@ let TokenSchema = new Schema({
 }, schemaOptions);
 
 /**
- * Tells us if the object is expired or not
+ * Tells us if the token has expired or not. Currently this works as the expiry of the token is
+ * mandatory.
  */
 TokenSchema
-  .virtual('expired').get(function() {
+  .virtual('expired')
+  .get(function() {
     return moment(Date.now()).diff(this.expiry) >= 0;
   });
 
 /**
- * Converts the expiry into expires in seconds values
+ * Tells us in how many seconds the relevant token expires
  */
 TokenSchema
-  .virtual('expiresIn').get(function() {
+  .virtual('expiresIn')
+  .get(function() {
     let diff = moment(this.expiry).diff(Date.now());
     return moment.duration(diff).asSeconds();
   });

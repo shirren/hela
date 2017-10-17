@@ -85,7 +85,9 @@ UserSchema.methods.generateConfirmationToken = function() {
  * Helper to hash password
  */
 UserSchema.methods.hashPassword = function(password) {
-  return crypto.pbkdf2Sync(password, this.salt, 10000, 64, 'sha512').toString('base64');
+  return crypto
+          .pbkdf2Sync(password, this.salt, 10000, 64, 'sha512')
+          .toString('base64');
 };
 
 /**

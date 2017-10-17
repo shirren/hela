@@ -73,14 +73,10 @@ schema.path('redirectUris')
  * validator
  */
 schema.pre('validate', function(next) {
-  if (this.isNew && (this.clientId === '' ||
-      this.clientId === null ||
-      typeof this.clientId === 'undefined')) {
+  if (this.isNew && (this.clientId === '' || this.clientId === null || typeof this.clientId === 'undefined')) {
     this.clientId = crypto.randomBytes(32).toString('hex');
   }
-  if (this.isNew && (this.clientSecret === '' ||
-      this.clientSecret === null ||
-      typeof this.clientSecret === 'undefined')) {
+  if (this.isNew && (this.clientSecret === '' || this.clientSecret === null || typeof this.clientSecret === 'undefined')) {
     this.clientSecret = crypto.randomBytes(64).toString('base64');
   }
 

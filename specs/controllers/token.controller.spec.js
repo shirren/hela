@@ -362,7 +362,7 @@ describe('Token controller', () => {
             });
         });
 
-        it('should not generate a Refresh token if all secutiry measures are met', done => {
+        it('should not generate a Refresh token if all secutiry measures are not met', done => {
           bootstrap.factory
             .create('user')
             .then(user => {

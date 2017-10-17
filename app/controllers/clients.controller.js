@@ -9,9 +9,13 @@ const Client    = require('../models/client')
 module.exports = function() {
 
   return {
-    index: index, add: add, create: create, show: show, destroy: destroy 
+    index: index,
+    add: add,
+    create: create,
+    show: show,
+    destroy: destroy
   };
-  
+
   /**
    * Return all the current clients.
    * @param {Object} req    - Http request object
