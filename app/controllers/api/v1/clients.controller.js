@@ -43,7 +43,9 @@ class ClientsController {
                 .json({ errors: errorHelper(err) });
             });
         } else {
-          res.status(404).json({});
+          res
+            .status(404)
+            .end();
         }
       });
   }

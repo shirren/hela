@@ -57,7 +57,8 @@ describe('Token controller', () => {
     let client, originalResponse, accessToken;
 
     beforeEach(done => {
-      Client.findOne({ _id: authRequest.client.toString() })
+      Client
+        .findOne({ _id: authRequest.client.toString() })
         .then(result => {
           client = result;
           done();
@@ -69,25 +70,29 @@ describe('Token controller', () => {
       context('where the grant type is authorization_code', () => {
 
         it('should return 401 for an invalid secret', done => {
-          rest.post('/token?client_id=' + client.clientId + '&client_secret=random_secret')
+          rest
+            .post('/token?client_id=' + client.clientId + '&client_secret=random_secret')
             .type('form').send({ 'code': authRequest.key,  grant_type: 'authorization_code' })
             .expect(401, done);
         });
 
         it('should return 401 for an invalid redirect uri', done => {
-          rest.post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret + '&redirect_uri=invalid_url')
+          rest
+            .post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret + '&redirect_uri=invalid_url')
             .type('form').send({ 'code': authRequest.key, grant_type: 'authorization_code' })
             .expect(401, done);
         });
 
         it('should return 401 for no secret', done => {
-          rest.post('/token?client_id=' + client.clientId)
+          rest
+            .post('/token?client_id=' + client.clientId)
             .type('form').send({ 'code': authRequest.key, grant_type: 'authorization_code' })
             .expect(401, done);
         });
 
         it('should invalidate the authorisation code if all security measures are met', done => {
-          rest.post('/token?' + clientQuery(client))
+          rest
+            .post('/token?' + clientQuery(client))
             .type('form').send({ 'code': authRequest.key, grant_type: 'authorization_code' } )
             .expect(200)
             .then(_ => AuthorisationRequest.findOne({ _id: authRequest.id }))
@@ -299,7 +304,8 @@ describe('Token controller', () => {
       context('where the grant_type is client_credentials', () => {
 
         it('should generate an Access token if all security measures are met', done => {
-          rest.post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret)
+          rest
+            .post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret)
             .type('form').send({ grant_type: 'client_credentials', scope: 'read' } )
             .expect(200)
             .then(_ => AccessToken.findOne({ client: client }))
@@ -310,7 +316,8 @@ describe('Token controller', () => {
         });
 
         it('should be able to reduce the requested scope', done => {
-          rest.post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret)
+          rest
+            .post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret)
             .type('form').send({ grant_type: 'client_credentials', scope: 'read' } )
             .expect(200)
             .then(response => {
@@ -320,7 +327,8 @@ describe('Token controller', () => {
         });
 
         it('should not generate a Refresh token if all security measures are met', done => {
-          rest.post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret)
+          rest
+            .post('/token?client_id=' + client.clientId + '&client_secret=' + client.clientSecret)
             .type('form').send({ grant_type: 'client_credentials', scope: 'read' } )
             .expect(200)
             .then(_ => RefreshToken.count({ client: client }))

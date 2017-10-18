@@ -66,7 +66,8 @@ module.exports = function() {
    * @param {Object} res    - Http response object
    */
   function renderAuthorityPage(req, res, client, scope) {
-    new Request({ client: client, query: req.query, scope: scope, state: req.query.state }).save()
+    new Request({ client: client, query: req.query, scope: scope, state: req.query.state })
+          .save()
           .then(request =>
             res.render('authority/approve', { client: client, reqid: request.key, scope: scope })
           );
@@ -86,7 +87,8 @@ module.exports = function() {
       generateAuthCodeResponse(req, res);
     } else if (req.query.response_type === 'token') {
       let builder = new AccessTokenBuilder();
-      client.invalidateOtherTokens()
+      client
+        .invalidateOtherTokens()
         .then(_ => builder.createAccessToken(client, scope))
         .then(accessToken =>
           res.redirect(303, UrlBuilder(req.query.redirect_uri, {
