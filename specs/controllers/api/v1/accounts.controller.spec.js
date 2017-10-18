@@ -1,7 +1,7 @@
 'use strict';
 
-const bootstrap          = require('../bootstrap')()
-  , app                  = require('../../app')
+const bootstrap          = require('../../../bootstrap')()
+  , app                  = require('../../../../app')
   , _clearDb             = require('mocha-mongoose')(bootstrap.connectionString)
   , mongoose             = require('mongoose')
   , rest                 = require('supertest')(app);

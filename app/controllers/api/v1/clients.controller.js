@@ -1,38 +1,22 @@
 'use strict';
 
-const Client    = require('../models/client')
+const Account   = require('../../../models/account')
+  , Client      = require('../../../models/client')
   , errorHelper = require('mongoose-error-helper').errorHelper;
 
 /**
  * Export of generic error handling actions
  */
-module.exports = function() {
-
-  return {
-    index: index,
-    add: add,
-    create: create,
-    show: show,
-    destroy: destroy
-  };
+class ClientsController {
 
   /**
    * Return all the current clients.
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
-  function index(req, res) {
+  index(req, res) {
     Client.find({}) // TODO: Return all the clients for a particular account
       .then(clients => res.render('clients/index', { clients: clients }));
-  }
-
-  /**
-   * Render the new client form
-   * @param {Object} req    - Http request object
-   * @param {Object} res    - Http response object
-   */
-  function add(req, res) {
-    res.render('clients/add');
   }
 
   /**
@@ -40,16 +24,27 @@ module.exports = function() {
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
-  function create(req, res) {
-    let client = new Client({ name: req.body.name, redirectUris: [req.body.redirectUri] });
-    client.save()
-      .then( _ => {
-        req.session.flash = { message: 'New application created' };
-        res.redirect(303, '/clients');
-      })
-      .catch(err => {
-        err = err.errmsg ? [err.errmsg] : err.errors;
-        res.render('clients/add', { errors: errorHelper(err) });
+  create(req, res) {
+    let data = req.body;
+    Account
+      .findOne({ slug: req.params.id })
+      .then(account => {
+        if (account) {
+          let client = new Client({
+            name: data.name, redirectUris: data.redirectUris, scope: data.scopes, grantTypes: data.grantTypes,
+            account: account
+          });
+          client
+            .save()
+            .then(client => res.status(201).json(client))
+            .catch(err => {
+              res
+                .status(500)
+                .json({ errors: errorHelper(err) });
+            });
+        } else {
+          res.status(404).json({});
+        }
       });
   }
 
@@ -59,8 +54,9 @@ module.exports = function() {
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
-  function show(req, res) {
-    Client.findOne({ slug: req.params.id })
+  show(req, res) {
+    Client
+      .findOne({ slug: req.params.id })
       .then(client => {
         if (client)
           res.render('clients/show', client);
@@ -75,11 +71,13 @@ module.exports = function() {
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
-  function destroy(req, res) {
+  destroy(req, res) {
     Client.deleteOne({ slug: req.params.id })
       .then( _ => {
         req.session.flash = { message: 'Application removed' };
         res.json({ success: true });
       });
   }
-};
+}
+
+module.exports = ClientsController;

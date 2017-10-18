@@ -10,7 +10,7 @@ const ClientFilter      = require('../app/filters/client.filter')
 // Define controllers
 const AuthorityController = require('../app/controllers/authority.controller')
   , AccountController     = require('../app/controllers/api/v1/accounts.controller')
-  , ClientController      = require('../app/controllers/clients.controller')
+  , ClientController      = require('../app/controllers/api/v1/clients.controller')
   , ErrorController       = require('../app/controllers/errors.controller')
   , TokenController       = require('../app/controllers/token.controller');
 
@@ -44,7 +44,7 @@ class Router {
     // Client routes
     this.app.get('/clients', (r,q) => this.clientsController.index(r,q));
     this.app.get('/clients/new', (r,q) => this.clientsController.add(r,q));
-    this.app.post('/clients', (r,q) => this.clientsController.create(r,q));
+    this.app.post('/api/v1/accounts/:id/clients', (r,q) => this.clientsController.create(r,q));
     this.app.get('/clients/:id', (r,q) => this.clientsController.show(r,q));
     this.app.delete('/clients/:id', (r,q) => this.clientsController.destroy(r,q));
 

@@ -8,6 +8,8 @@ const bootstrap    = require('../bootstrap')()
 
 describe('Client model', () => {
 
+  let account;
+
   beforeEach(done => {
     if (!mongoose.connection.db) {
       mongoose.connect(bootstrap.connectionString, done);
@@ -16,20 +18,34 @@ describe('Client model', () => {
     }
   });
 
+  beforeEach(done => {
+    bootstrap.factory
+      .build('account')
+      .then(factoryAccount => {
+        account = factoryAccount;
+        done();
+      })
+      .catch(done);
+  });
+
   it('should be able to return the primary redirect uri', () => {
-    let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test1', 'http://localhost:3000/test2'] });
+    let client = new Client({
+      name: 'nike_app',
+      redirectUris: ['http://localhost:3000/test1', 'http://localhost:3000/test2'],
+      account: account
+    });
     expect(client.redirectUri).to.equal('http://localhost:3000/test1');
   });
 
   it('should be able to handle an empty redirect uri list', () => {
-    let client = new Client({ name: 'nike_app', redirectUris: [] });
+    let client = new Client({ name: 'nike_app', redirectUris: [], account: account });
     expect(client.redirectUri).to.equal(undefined);
   });
 
   describe('#save', () => {
 
     it('should auto-generate a client id', done => {
-      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(inst => {
@@ -40,7 +56,7 @@ describe('Client model', () => {
     });
 
     it('should have a slug', done => {
-      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(inst => {
@@ -51,7 +67,7 @@ describe('Client model', () => {
     });
 
     it('should auto-generate a client secret', done => {
-      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(client => {
@@ -62,7 +78,7 @@ describe('Client model', () => {
     });
 
     it('should accept a custom client id', done => {
-      let client = new Client({ clientId: '123', name: 'nike_app', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ clientId: '123', name: 'nike_app', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(client => {
@@ -73,11 +89,11 @@ describe('Client model', () => {
     });
 
     it('should forbid duplicate clients', done => {
-      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'nike_app', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(() => {
-          let client = new Client({ name: 'nike_app' });
+          let client = new Client({ name: 'nike_app', account: account });
           return client.save();
         })
         .catch(err => {
@@ -87,7 +103,7 @@ describe('Client model', () => {
     });
 
     it('should lowercase client name', done => {
-      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(client => {
@@ -99,7 +115,7 @@ describe('Client model', () => {
 
     it('should not modify client secret on an update', done => {
       let secret = null;
-      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(client => {
@@ -116,7 +132,7 @@ describe('Client model', () => {
 
     it('should not modify client id on an update', done => {
       let id = null;
-      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost:3000/test'] });
+      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost:3000/test'], account: account });
       client
         .save()
         .then(client => {
@@ -134,7 +150,7 @@ describe('Client model', () => {
 
   describe('#validation', () => {
 
-    it('should not be createable without a name', done => {
+    it('should not be valid without a name', done => {
       let client = new Client({ redirectUris: ['http://localhost:3000/test'] });
       client
         .validate(err => {
@@ -143,20 +159,20 @@ describe('Client model', () => {
         });
     });
 
-    it('should not be creatable without a redirect uri', done => {
-      let client = new Client({ name: 'Nike_App' });
-      client
-        .validate(err => {
-          expect(err.errors.redirectUris.message).to.equal('Redirect uri required');
-          done();
-        });
-    });
-
-    it('should not be creatable without a valid redirect uri', done => {
+    it('should not be valid without a valid redirect uri', done => {
       let client = new Client({ name: 'Nike_App', redirectUris: ['test'] });
       client
         .validate(err => {
           expect(err.errors['redirectUris.0'].message).to.equal('url is invalid');
+          done();
+        });
+    });
+
+    it('should not be valid without an account', done => {
+      let client = new Client({ name: 'Nike_App', redirectUris: ['http://localhost'] });
+      client
+        .validate(err => {
+          expect(err.errors.account.message).to.equal('Account required');
           done();
         });
     });

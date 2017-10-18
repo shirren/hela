@@ -18,6 +18,7 @@ let schema = new Schema({
   name:         { type: String, required: 'Name required', index: true, unique: true },
   clientId:     { type: String, required: 'Client id required', index: true, unique: true },
   clientSecret: { type: String, required: 'Secret required', index: true },
+  account:      { type: Schema.ObjectId, ref: 'Account', required: 'Account required' },
   redirectUris: [{ type: mongoose.SchemaTypes.Url }],
   scope:        [{ type: String }],
   grantTypes:   [{ type: String }],
@@ -34,7 +35,8 @@ mongoose.plugin(slug);
 /**
  * Utility method to return primary redirect Uri
  */
-schema.virtual('redirectUri')
+schema
+  .virtual('redirectUri')
   .get(function() {
     if (this.redirectUris && this.redirectUris.length > 0) {
       return this.redirectUris[0];
@@ -55,18 +57,6 @@ schema.methods.supportsGrant = function(grantType) {
 schema.methods.invalidateOtherTokens = function() {
   return AccessToken.update({ client: this.id }, { revoked : true }, { multi: true });
 };
-
-/**
- * A client needs to have at least a single redirect uri.
- * TODO: We need to support multiple re-direct URIS.
- */
-schema.path('redirectUris')
-  .validate(uris => {
-    if (uris && uris.length > 0) {
-      return true;
-    }
-    return false;
-  }, 'Redirect uri required');
 
 /**
  * Pre validate we track whether the application document is new. The pre validations
