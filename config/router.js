@@ -9,6 +9,7 @@ const ClientFilter      = require('../app/filters/client.filter')
 
 // Define controllers
 const AuthorityController = require('../app/controllers/authority.controller')
+  , AccountController     = require('../app/controllers/api/v1/accounts.controller')
   , ClientController      = require('../app/controllers/clients.controller')
   , ErrorController       = require('../app/controllers/errors.controller')
   , TokenController       = require('../app/controllers/token.controller');
@@ -35,6 +36,10 @@ class Router {
    * configuration namespace
    */
   configure() {
+
+    // Account routes
+    this.app.post('/api/v1/accounts', (r,q) => this.accountsController.create(r,q));
+    this.app.get('/api/v1/accounts/:id', (r,q) => this.accountsController.show(r,q));
 
     // Client routes
     this.app.get('/clients', (r,q) => this.clientsController.index(r,q));
@@ -111,6 +116,7 @@ class Router {
    * Create all the controller objects
    */
   _constructControllers() {
+    this.accountsController = new AccountController();
     this.clientsController = new ClientController();
     this.authorityController = new AuthorityController();
     this.errorsController = new ErrorController();

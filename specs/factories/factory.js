@@ -2,6 +2,7 @@
 
 const factory          = require('factory-girl').factory
   , authRequestFactory = require('./authorisation.requests')
+  , accountFactory     = require('./accounts')
   , clientFactory      = require('./clients')
   , MongooseAdapter    = require('factory-girl').MongooseAdapter
   , requestFactory     = require('./requests')
@@ -14,6 +15,7 @@ const factory          = require('factory-girl').factory
 module.exports = (function() {
   factory.setAdapter(new MongooseAdapter());
 
+  accountFactory(factory);
   clientFactory(factory);
   requestFactory(factory);
   authRequestFactory(factory);

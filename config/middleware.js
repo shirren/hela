@@ -31,6 +31,7 @@ class Middleware {
      */
     this.app.use(compression({ filter: this.shouldCompress }));
     this.app.use(bodyParser.urlencoded({ extended: true }));
+    this.app.use(bodyParser.json());
 
     /**
      * Configure express to generate cookies and session state via cookies

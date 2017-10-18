@@ -34,12 +34,13 @@ mongoose.plugin(slug);
 /**
  * Utility method to return primary redirect Uri
  */
-schema.virtual('redirectUri').get(function() {
-  if (this.redirectUris && this.redirectUris.length > 0) {
-    return this.redirectUris[0];
-  }
-  return undefined;
-});
+schema.virtual('redirectUri')
+  .get(function() {
+    if (this.redirectUris && this.redirectUris.length > 0) {
+      return this.redirectUris[0];
+    }
+    return undefined;
+  });
 
 /**
  * Tells us if this client supports the specified grant type
