@@ -9,10 +9,13 @@ const ClientFilter      = require('../app/filters/client.filter')
 
 // Define controllers
 const AuthorityController = require('../app/controllers/authority.controller')
-  , AccountController     = require('../app/controllers/api/v1/accounts.controller')
-  , ClientController      = require('../app/controllers/api/v1/clients.controller')
+  , AccountsController     = require('hela-accounts').AccountsController
+  , ClientController      = require('../app/controllers/clients-controller')
   , ErrorController       = require('../app/controllers/errors.controller')
   , TokenController       = require('../app/controllers/token.controller');
+
+// Define domain entry points
+const Registration = require('hela-accounts').Registration;
 
 /**
  * All routes are defined here. Routes are added in precedence order
@@ -28,6 +31,8 @@ class Router {
   constructor(app) {
     this.app = app;
     this._configureRouter(app);
+    // TODO: Not sure I like this
+    this._constructDomainPorts();
     this._constructControllers();
   }
 
@@ -116,11 +121,18 @@ class Router {
    * Create all the controller objects
    */
   _constructControllers() {
-    this.accountsController = new AccountController();
+    this.accountsController = new AccountsController(this.registration);
     this.clientsController = new ClientController();
     this.authorityController = new AuthorityController();
     this.errorsController = new ErrorController();
     this.tokenController = new TokenController();
+  }
+
+  /**
+   * Create all domain ports
+   */
+  _constructDomainPorts() {
+    this.registration = new Registration();
   }
 }
 

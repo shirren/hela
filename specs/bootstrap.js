@@ -20,15 +20,28 @@ module.exports = function() {
   /**
    * Collection of utility arrow functions
    */
-  let clientQuery = client => 'client_id=' + client.clientId +
-                              '&client_secret=' + client.clientSecret +
-                              '&redirect_uri=' + client.redirectUri;
+  const clientQuery = client => 'client_id=' + client.clientId +
+                                '&client_secret=' + client.clientSecret +
+                                '&redirect_uri=' + client.redirectUri;
+
+  /**
+   * All our specs require database connectivity. This arrow function
+   * is a useful utility for use in the before each cb
+   */
+  const dbConnect = done => {
+    if (!mongoose.connection.db) {
+      mongoose.connect(nconf.get('DATABASE'), done);
+    } else {
+      done();
+    }
+  };
 
   return {
     awsKey:           nconf.get('AWS_KEY'),
     awsSecret:        nconf.get('AWS_SECRET'),
     connectionString: nconf.get('DATABASE'),
     factory:          require('./factories/factory'),
-    clientQuery:      clientQuery
+    clientQuery:      clientQuery,
+    dbConnect:        dbConnect
   };
 };

@@ -7,3 +7,6 @@ config.test.json
 
 # Ignore any OS generated files
 .DS_Store
+
+# Ignore log files
+*.log

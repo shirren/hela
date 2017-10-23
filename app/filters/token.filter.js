@@ -4,7 +4,7 @@ const AuthorisationRequest = require('../models/authorisation.request')
   , RefreshToken           = require('../models/refresh.token')
   , ScopeHelper            = require('../../lib/helpers/scope.helpers')
   , UrlBuilder             = require('../../lib/http/url.builder')
-  , UserRepository         = require('../models/repositories/user.repository')
+  , UserRepository         = require('hela-accounts').UserRepository
   , __                     = require('underscore');
 
 /**

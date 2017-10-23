@@ -39,4 +39,10 @@ const Database = require('./config/database');
 let db = new Database(app);
 db.configure();
 
+/**
+ * Protect the api with some common patterns
+ */
+const helmet = require('helmet');
+app.use(helmet());
+
 module.exports = app;

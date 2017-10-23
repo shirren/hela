@@ -18,7 +18,7 @@ let schema = new Schema({
   name:         { type: String, required: 'Name required', index: true, unique: true },
   clientId:     { type: String, required: 'Client id required', index: true, unique: true },
   clientSecret: { type: String, required: 'Secret required', index: true },
-  account:      { type: Schema.ObjectId, ref: 'Account', required: 'Account required' },
+  account:      { type: String, required: 'Account required' },
   redirectUris: [{ type: mongoose.SchemaTypes.Url }],
   scope:        [{ type: String }],
   grantTypes:   [{ type: String }],

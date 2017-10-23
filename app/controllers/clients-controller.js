@@ -1,13 +1,17 @@
 'use strict';
 
-const Account   = require('../../../models/account')
-  , Client      = require('../../../models/client')
-  , errorHelper = require('mongoose-error-helper').errorHelper;
+const AccountRepository   = require('hela-accounts').AccountRepository
+  , Client                = require('../models/client')
+  , errorHelper           = require('mongoose-error-helper').errorHelper;
 
 /**
  * Export of generic error handling actions
  */
 class ClientsController {
+
+  constructor() {
+    this.accountRepository = new AccountRepository();
+  }
 
   /**
    * Return all the current clients.
@@ -26,8 +30,7 @@ class ClientsController {
    */
   create(req, res) {
     let data = req.body;
-    Account
-      .findOne({ slug: req.params.id })
+    this.accountRepository.findById(req.params.id)
       .then(account => {
         if (account) {
           let client = new Client({

@@ -14,13 +14,7 @@ class Database {
    */
   constructor(app) {
     this.app = app;
-    this.opts = {
-      server: {
-        socketOptions: {
-          keepAlive: 1
-        }
-      }
-    };
+    this.opts = { useMongoClient: true };
     mongoose.Promise = Promise;
   }
 
