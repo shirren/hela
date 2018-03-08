@@ -9,13 +9,13 @@ const ClientFilter      = require('../app/filters/client.filter')
 
 // Define controllers
 const AuthorityController = require('../app/controllers/authority.controller')
-  , AccountsController     = require('hela-accounts').AccountsController
+  , AccountsController     = require('../lib/accounts').AccountsController
   , ClientController      = require('../app/controllers/clients-controller')
   , ErrorController       = require('../app/controllers/errors.controller')
   , TokenController       = require('../app/controllers/token.controller');
 
 // Define domain entry points
-const Registration = require('hela-accounts').Registration;
+const Registration = require('../lib/accounts').Registration;
 
 /**
  * All routes are defined here. Routes are added in precedence order
