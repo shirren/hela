@@ -1,6 +1,6 @@
 'use strict';
 
-const AccountRepository   = require('../../lib/accounts').AccountRepository
+const AccountRepository   = require('../../lib/accounts').repositories.AccountRepository
   , Client                = require('../models/client')
   , errorHelper           = require('mongoose-error-helper').errorHelper;
 

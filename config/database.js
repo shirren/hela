@@ -1,16 +1,20 @@
 'use strict';
 
-const mongoose = require('mongoose')
-  , nconf      = require('nconf');
+const mongoose = require('mongoose');
+const nconf    = require('nconf');
 
 /**
- * Configure database connection
- * @constructor
+ * Configure database connection for a given Express application.
+ * 
+ * @author Shirren Premaratne
  */
 class Database {
 
   /**
    * Setup mongoose to use EM2015 style promises
+   * 
+   * @constructor
+   * @param {Object} app - Express applicatio
    */
   constructor(app) {
     this.app = app;
