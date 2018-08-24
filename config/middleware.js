@@ -36,11 +36,11 @@ class Middleware {
     /**
      * Configure express to generate cookies and session state via cookies
      */
-    this.app.use(cookieParser(nconf.get('COOKIE_SECRET')));
+    this.app.use(cookieParser(nconf.get('SECRET')));
     this.app.use(session({
       resave: false,
       saveUninitialized: false,
-      secret: nconf.get('COOKIE_SECRET')
+      secret: nconf.get('SECRET')
     }));
 
     // We transfer the flash message from the session into the context

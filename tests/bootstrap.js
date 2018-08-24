@@ -37,8 +37,6 @@ module.exports = function() {
   };
 
   return {
-    awsKey:           nconf.get('AWS_KEY'),
-    awsSecret:        nconf.get('AWS_SECRET'),
     connectionString: nconf.get('DATABASE'),
     factory:          require('./factories/factory'),
     clientQuery:      clientQuery,

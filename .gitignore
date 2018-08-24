@@ -3,7 +3,6 @@ node_modules
 
 # Configuration files
 config.json
-config.test.json
 
 # Ignore any OS generated files
 .DS_Store
