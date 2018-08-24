@@ -1,6 +1,4 @@
-# cloudidentity.io preview
-
-The team at Cloud Identity built cloudidentity.io because we believe in providing a secure platform to manage user accounts and application access. We have built this application to be made accessible to all based on our experience. Security and identity management can be a complex topic, but we've decided to tackle this particular topic by building what we think is the benchmark of cloud security - "Simple & Secure".
+# OAuth2 Node Implementation
 
 ## Getting Started
 
