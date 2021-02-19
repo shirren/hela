@@ -29,7 +29,7 @@
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
-    "helmet": "^3.12.0",
+    "helmet": "^4.4.1",
     "moment": "^2.21.0",
     "mongoose": "^4.13.11",
     "mongoose-error-helper": "0.0.2",
