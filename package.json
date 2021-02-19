@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "mocha --recursive tests/"
+    "test": "mocha --recursive tests/ --exit"
   },
   "repository": {
     "type": "git",
@@ -49,7 +49,7 @@
     "grunt-eslint": "^19.0.0",
     "grunt-exec": "^2.0.0",
     "grunt-mocha-test": "^0.13.3",
-    "mocha": "^3.5.3",
+    "mocha": "^8.3.0",
     "mocha-mongoose": "^1.2.0",
     "supertest": "^3.0.0"
   }
