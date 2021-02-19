@@ -5,7 +5,7 @@ const AccountRepository   = require('../../lib/accounts').repositories.AccountRe
   , errorHelper           = require('mongoose-error-helper').errorHelper;
 
 /**
- * Export of generic error handling actions
+ * Export of generic error handling actions.
  */
 class ClientsController {
 
@@ -15,6 +15,7 @@ class ClientsController {
 
   /**
    * Return all the current clients.
+   *
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
@@ -24,7 +25,8 @@ class ClientsController {
   }
 
   /**
-   * Create the new client
+   * Register a new client.
+   *
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
@@ -55,7 +57,8 @@ class ClientsController {
 
   /**
    * Show an existing clients details, if we cannot find the client, then redirect
-   * back to the list of clients page
+   * back to the list of clients page.
+   *
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */
@@ -72,7 +75,8 @@ class ClientsController {
 
   /**
    * Remove an existing client from the system. This is an async request from the browser
-   * so we send back a JSON formatted response
+   * so we send back a JSON formatted response.
+   *
    * @param {Object} req    - Http request object
    * @param {Object} res    - Http response object
    */

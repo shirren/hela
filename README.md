@@ -1,10 +1,14 @@
-# cloudidentity.io preview
+# OAuth2 Node Implementation
 
-The team at Cloud Identity built cloudidentity.io because we believe in providing a secure platform to manage user accounts and application access. We have built this application to be made accessible to all based on our experience. Security and identity management can be a complex topic, but we've decided to tackle this particular topic by building what we think is the benchmark of cloud security - "Simple & Secure".
+This API was implemented as an exercise in understanding how the OAUTH protocol works from the perspective of the provider, not just the
+consumer. It has not visual component event though strictly speaking the `Auth code` grant type needs to present a view. I have chosen to
+ignore the visual component in the interest in focussing on the core of the OAuth protocol. I have also chosen to use this application to showcase my Javascript and Node JS skills for the community to see. I welcome all and any feedback from interested parties.
 
 ## Getting Started
 
-To get started we need to cover off on the `OAuth` principles in use by the platform, after which we show you how to get started with the platform.
+This api was written and tested on Node v8.11.2. It has not been tested on later versions. Install all dependencies with the `npm install` command. To ensure the code is in a healthy state please run all the specs initially before running the application with the command
+`npm test`. The application uses MongoDB as its' backing store. To run the application in development copy the provided `config.test.json` file to a file with the name `config.json`. Then edit the properties in the file. Once you've done so the application may be started with the
+command `npm start`.
 
 ## OAuth Principles
 
@@ -21,3 +25,27 @@ With the `Authorization code` grant type we saw how there were 4 participants. W
 ### Refresh Token
 
 Refresh tokens may be used by a client to request an update to an existing token iff the user is not present. This grant type is commonly used with the *Authorization Code* grant type when a client machine requires extended access to a resource. Asking a user to continuously authenticate after the original token expires can lead to poor user experience. So the common use case is to first obtain a token using *Authorization Code*, then is about to expire and the client still requires access, rather than asking the user to authenticate a client can request an updated token. The *Refresh Token* flow is similar to the *Client Credentials* flow.
+
+## License
+
+MIT License
+
+Copyright (c) 2018 Shirren Premaratne
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
