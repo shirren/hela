@@ -94,7 +94,7 @@ describe('Refresh Token model', () => {
         .create('refresh token')
         .then(token => {
           let diff = moment(token.expiry).diff(moment(Date.now()));
-          expect(moment.utc(diff).format(':mm:ss')).to.equal(':59:59'); // Weird!!!
+          expect(400000 - diff).to.be.lessThan(2);
           done();
         });
     });

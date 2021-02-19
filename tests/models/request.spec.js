@@ -68,7 +68,7 @@ describe('Request model', () => {
             .save()
             .then(request => {
               let diff = moment(request.expiry).diff(moment(Date.now()));
-              expect(moment.utc(diff).format(':mm:ss')).to.equal(':04:59'); // Weird!!!
+              expect(300000 - diff).to.be.lessThan(2); // 5 mins is 300000 ms.
               done();
             });
         });
