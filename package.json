@@ -40,7 +40,7 @@
     "named-routes": "^2.0.6",
     "nconf": "^0.8.5",
     "node-ses": "^2.2.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "devDependencies": {
     "chai": "^3.5.0",
